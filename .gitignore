@@ -1039,3 +1039,8 @@ Module.symvers
 Mkfile.old
 dkms.conf
 .vscode/tasks.json
+
+
+# ADD ME
+.vscode
+bin
