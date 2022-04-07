@@ -1044,3 +1044,6 @@ dkms.conf
 # ADD ME
 .vscode
 bin
+
+#Python pkg
+*.egg-info
