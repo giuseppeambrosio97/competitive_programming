@@ -22,7 +22,7 @@ class ListNode:
         return nodes[0]
     
     def pretty_print(self) -> None:
-        curr = head
+        curr = self
         while curr is not None:
             print(curr)
             curr = curr.next
