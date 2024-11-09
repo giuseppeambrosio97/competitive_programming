@@ -1,5 +1,5 @@
 from typing import Optional, List
-
+import collections as cll
 class TreeNode:
     def __init__(self, val=0, left=None, right=None):
         self.val = val
@@ -28,8 +28,8 @@ class Output:
     def __init__(self):
         self.out = 0
 
-    def incr(self):
-        self.out += 1
+    def incr(self, val: int = 1):
+        self.out += val
 
 class Solution:
 
@@ -73,26 +73,45 @@ class Solution:
         Solution.dfs(root, targetSum, output)
         return output.out
     
+
+    @staticmethod
+    def dfs2(a: TreeNode, targetSum: int, sumCounts: cll.defaultdict, currentSum: int, output: Output):
+        if not a or a.val is None:
+            return
+        
+        currentSum += a.val
+
+        output.incr(sumCounts[currentSum - targetSum])
+
+        sumCounts[currentSum] += 1
+
+        Solution.dfs2(a.left, targetSum, sumCounts, currentSum, output)
+        Solution.dfs2(a.right, targetSum, sumCounts, currentSum, output)
+
+        sumCounts[currentSum] -= 1
+    
     def pathSum(self, root: Optional[TreeNode], targetSum: int) -> int:
         """
-        non-balanced tree
-        T(n) = T(n-1) + n
-             = O(n^2)
-        balanced tree
-        T(n) = 2T(n/2) + n
-             = O(nlogn)
-        S(n) = O(1)
-        where n is the cost of Solution.ps
+        T(n) = O(n)
+        S(n) = O(n)
         """
-        output = Output()
-        Solution.dfs(root, targetSum, output)
-        return output.out
+        sumCounts = cll.defaultdict(int)
+
+        sumCounts[0] = 1
+
+        out = Output()
+
+        Solution.dfs2(root, targetSum, sumCounts, 0, out)
+
+        return out.out
+
+
 
 
 if __name__ == "__main__":
-    arr = [5,4,8,11,None,13,4,7,2,None,None,5,1]
+    arr = [10,5,-3,3,2,None,11,3,-2,None,1]
 
     root = TreeNode.build_from_array(arr)
 
-    res = Solution().pathSum(root, 22)
+    res = Solution().pathSum(root, 8)
     print(res)
