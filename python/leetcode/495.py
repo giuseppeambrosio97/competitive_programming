@@ -1,19 +1,12 @@
 from typing import List
 
-
 class Solution:
     def findPoisonedDuration(self, timeSeries: List[int], duration: int) -> int:
-        end = 0
-
         cnt = 0
-        for t in timeSeries:
-            if t > end:
-                cnt += duration
-            else:
-                cnt += max(0, t + duration - end)
-            end = max(end, t + duration)
+        for i in range(len(timeSeries) - 1):
+            cnt += min(duration, timeSeries[i + 1] - timeSeries[i])
+        return cnt + duration if timeSeries else 0
 
-        return cnt
 
 
 if __name__ == "__main__":
