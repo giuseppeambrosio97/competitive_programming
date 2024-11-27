@@ -20,13 +20,31 @@ class TreeNode:
 
 class Solution:
     def insertIntoBST(self, root: Optional[TreeNode], val: int) -> Optional[TreeNode]:
+        """Recursive."""
+        # if not root:
+        #     return TreeNode(val=val)  
+        # if val < root.val:
+        #     root.left = self.insertIntoBST(root.left, val)
+        # elif val > root.val:
+        #     root.right = self.insertIntoBST(root.right, val)
+        # return root
+        """Iterative."""
         if not root:
-            return TreeNode(val=val)  
-        if val < root.val:
-            root.left = self.insertIntoBST(root.left, val)
-        elif val > root.val:
-            root.right = self.insertIntoBST(root.right, val)
-        return root
+            return TreeNode(val=val)
+        curr = root
+        while curr:
+            if val > curr.val:
+                if not curr.right:
+                    curr.right = TreeNode(val)
+                    return root
+                curr = curr.right
+            else:
+                if not curr.left:
+                    curr.left = TreeNode(val)
+                    return root
+                curr = curr.left
+
+
 
 
 if __name__ == "__main__":
