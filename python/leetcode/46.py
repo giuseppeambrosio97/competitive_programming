@@ -1,22 +1,19 @@
-from typing import List, Set
+from typing import List
 
 
 class Solution:
     def permute(self, nums: List[int]) -> List[List[int]]:
+        if len(nums) == 0:
+            return [[]]
+        
+        perms = self.permute(nums[1:])
         res = []
-
-        def comb(combl: List, uset: Set):
-            if len(uset) == 0:
-                res.append(combl.copy())
-
-            for n in uset:
-                combl.append(n)
-                use1 = uset.copy()
-                use1.remove(n)
-                comb(combl, use1)
-                combl.pop()
-
-        comb([], set(nums))
+        for p in perms:
+            for i in range(len(p)+1):
+                pc = p.copy()
+                pc.insert(i,nums[0])
+                res.append(pc)
+        
         return res
     
 if __name__ == '__main__':
