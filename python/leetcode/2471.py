@@ -47,7 +47,7 @@ class Solution:
             return swap_count
 
         while queue:
-            current_level_values = [node.val for node in queue if node]
+            current_level_values = [node.val for node in queue]
             total_swaps += count_swaps_to_sort(current_level_values)
 
             for _ in range(len(queue)):
