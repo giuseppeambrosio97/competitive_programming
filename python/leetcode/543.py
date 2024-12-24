@@ -29,7 +29,7 @@ class Solution:
             l = dfs(node.left)
             r = dfs(node.right)
             ## update diameter
-            ## l,r are the heights of the left and right subtree so be have to count the edges to reach those subtree that are two
+            ## l,r are the heights of the left and right subtree so we have to count the edges to reach those subtree that are two
             ## for leaf nodes this formula will be: -1 -1 + 2 = 0
             max_[0] = max(max_[0],l+r+2)
 
