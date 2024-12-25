@@ -2,6 +2,7 @@
 
 from typing import List, Optional
 
+
 class TreeNode:
     def __init__(self, val=0, left=None, right=None):
         self.val = val
@@ -21,25 +22,34 @@ class TreeNode:
 
 class Solution:
     def diameterOfBinaryTree(self, root: Optional[TreeNode]) -> int:
-        max_ = [-1]
+        # max_ = [-1]
 
+        # def dfs(node: Optional[TreeNode]) -> int:
+        #     if not node:
+        #         return -1
+        #     l = dfs(node.left)
+        #     r = dfs(node.right)
+        #     ## update diameter
+        #     ## l,r are the heights of the left and right subtree so we have to count the edges to reach those subtree that are two
+        #     ## for leaf nodes this formula will be: -1 -1 + 2 = 0
+        #     max_[0] = max(max_[0],l+r+2)
+
+        #     return 1 + max(l,r)
+        # dfs(root)
+        # return max_[0]
         def dfs(node: Optional[TreeNode]) -> int:
+            max_ = 0
             if not node:
-                return -1
-            l = dfs(node.left)
-            r = dfs(node.right)
-            ## update diameter
-            ## l,r are the heights of the left and right subtree so we have to count the edges to reach those subtree that are two
-            ## for leaf nodes this formula will be: -1 -1 + 2 = 0
-            max_[0] = max(max_[0],l+r+2)
+                return (-1, -1)  ##(diameter, height)
+            dl, hl = dfs(node.left)
+            dr, hr = dfs(node.right)
+            return (max(max_, hl + hr + 2, dl, dr), 1 + max(hl, hr))
 
-            return 1 + max(l,r)
-        dfs(root)
-        return max_[0]
-        
+        droot, hroot = dfs(root)
+        return droot
 
 
 if __name__ == "__main__":
-    root = TreeNode.from_array([1,2,3,4,5])
+    root = TreeNode.from_array([1, 2, 3, 4, 5])
     t = Solution().diameterOfBinaryTree(root)
     print(t)
