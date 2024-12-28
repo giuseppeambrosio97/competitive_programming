@@ -1,5 +1,4 @@
 from functools import lru_cache
-import math
 from typing import List
 
 
@@ -17,10 +16,8 @@ class Solution:
 
         @lru_cache(maxsize=None)
         def dp(i: int, j: int):
-            if j <= 0:
+            if j <= 0 or i >= len(intervalsum):
                 return 0, []
-            if i >= len(intervalsum):
-                return -math.inf, []
             ## take the subarray i
             takesum, takeidxs = dp(i+k, j-1)
             takesum += intervalsum[i]
