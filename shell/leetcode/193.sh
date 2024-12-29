@@ -14,7 +14,6 @@ process_line() {
 }
 
 
-
 # open the file and read line by line
 while IFS= read -r line || [[ -n "$line" ]];
 do
