@@ -24,7 +24,7 @@ class Solution:
             move 45 even chips to odd and pay 45 and then move for free at the same position of the 50 odd chips
         T(n)=O(n), S(n)=O(1)
         """
-        odd_cnt = sum(1 for p in position if p & 1)
+        odd_cnt = sum(p&1 for p in position)
         even_cnt = len(position) - odd_cnt
         return min(odd_cnt, even_cnt)
 
