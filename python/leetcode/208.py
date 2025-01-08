@@ -6,6 +6,12 @@ class Node:
         self.end_node = False
         self.childs: List[Node] = [None for _ in range(26)]
 
+    def __getitem__(self, letter) -> "Node":
+        return self.childs[ord(letter)-97]
+    
+    def __setitem__(self, letter, node: "Node") -> None:
+        self.childs[ord(letter)-97] = node
+
 class Trie:
 
     def __init__(self):
@@ -13,26 +19,24 @@ class Trie:
 
     def insert(self, word: str) -> None:
         """T(word) = len(word)"""
-        chs = list(word)
         current_node = self.root
-        for idx, ch in enumerate(chs):
-            if current_node.childs[ord(ch)- 97] is None:
-                current_node.childs[ord(ch)- 97] = Node()
+        for idx, ch in enumerate(word):
+            if current_node[ch] is None:
+                current_node[ch] = Node()
 
-            if idx == len(chs) - 1:
-                current_node.childs[ord(ch)- 97].end_node = True
-            current_node = current_node.childs[ord(ch)- 97]
+            if idx == len(word) - 1:
+                current_node[ch].end_node = True
+            current_node = current_node[ch]
         
 
     def search(self, word: str) -> bool:
-        """T(word) = len(word)"""       
-        chs = list(word)
+        """T(word) = len(word)""" 
         current_node = self.root
-        for ch in chs:
-            if current_node.childs[ord(ch)- 97] is None:
+        for ch in word:
+            if current_node[ch] is None:
                 return False
             
-            current_node = current_node.childs[ord(ch)- 97]
+            current_node = current_node[ch]
             
         return current_node.end_node
     
@@ -42,10 +46,10 @@ class Trie:
         chs = list(prefix)
         current_node = self.root
         for ch in chs:
-            if current_node.childs[ord(ch)- 97] is None:
+            if current_node[ch] is None:
                 return False
             
-            current_node = current_node.childs[ord(ch)- 97]
+            current_node = current_node[ch]
             
         return True
 
