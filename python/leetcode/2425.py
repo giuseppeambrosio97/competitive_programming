@@ -12,8 +12,6 @@ class Solution:
         """O(n1+n2)"""
         r = 0
         n1, n2 = len(nums1) & 1, len(nums2) & 1
-        if not n1 and not n2:
-            return 0
         if n1:
             for i in range(len(nums2)):
                 r ^= nums2[i]
