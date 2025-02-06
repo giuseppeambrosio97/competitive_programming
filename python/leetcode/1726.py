@@ -4,17 +4,17 @@ import math
 
 class Solution:
     def tupleSameProduct(self, nums: List[int]) -> int:
-        mp = defaultdict(list)
+        mp = defaultdict(int)
         n = len(nums)
 
         for i in range(n):
             for j in range(i+1, n):
-                mp[nums[i]*nums[j]].append((nums[i], nums[j]))
+                mp[nums[i]*nums[j]]+= 1
 
         res = 0
         for v in mp.values():
-            if len(v) > 1:
-                res += math.comb(len(v), 2)*8
+            if v > 1:
+                res += math.comb(v, 2)*8
         return res
 
 
