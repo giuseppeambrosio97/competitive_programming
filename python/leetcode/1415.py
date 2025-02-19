@@ -3,17 +3,20 @@ from typing import List
 
 class Solution:
     def getHappyString(self, n: int, k: int) -> str:
-        C = ["a", "b", "c"]
-        cnt = [0]
+        choices = ["a", "b", "c"]
 
+        if 3*(2**(n-1)) < k:
+            return ""
+
+        cnt = 0
         def bk(s: List[str]):
+            nonlocal cnt
             if len(s) == n:
-                cnt[0] += 1
-                if cnt[0] == k:
+                cnt += 1
+                if cnt == k:
                     return s
-                return 
-
-            for i in C:
+                return []
+            for i in choices:
                 if s and s[-1] == i:
                     continue
                 s.append(i)
@@ -21,13 +24,7 @@ class Solution:
                 if r:
                     return r
                 s.pop()
-
-        r = bk([])
-
-        if not r:
-            return ""
-
-        return "".join(map(str, r))
+        return "".join(map(str, bk([])))
 
 if __name__ == "__main__":
     n = 1
