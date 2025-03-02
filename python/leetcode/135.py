@@ -6,17 +6,14 @@ class Solution:
         n = len(ratings)
         res = [1]*n
 
-        for i in range(n):
-            if i > 0 and ratings[i] > ratings[i-1]:
+        for i in range(1,n):
+            if ratings[i] > ratings[i-1]:
                 res[i] = res[i-1] + 1
-        
-        cnt = 0
-        for i in reversed(range(n)):
-            if i < n-1 and ratings[i] > ratings[i+1] and res[i] <= res[i+1]:
+        for i in reversed(range(n-1)):
+            if ratings[i] > ratings[i+1] and res[i] <= res[i+1]:
                 res[i] = res[i+1] + 1
-            cnt += res[i]
         
-        return cnt
+        return sum(res)
 
 if __name__ == "__main__":
     # ratings = [4,3,2,1]
