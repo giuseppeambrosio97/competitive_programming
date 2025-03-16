@@ -1,7 +1,6 @@
 import math
 from typing import List
 
-
 class Solution:
     def repairCars(self, ranks: List[int], cars: int) -> int:
         n = len(ranks)
@@ -15,7 +14,7 @@ class Solution:
                 i += 1
             return c <= 0
 
-        l, r = 0, max(ranks)*cars**2
+        l, r = 1, min(ranks)*cars**2
         res = math.inf
         while l <= r:
             m = l + (r-l)//2
