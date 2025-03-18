@@ -7,9 +7,9 @@ class Solution:
         n = len(nums)
 
         res = 1
-        mask = nums[0]
+        mask = 0
 
-        for r in range(1, n):
+        for r in range(n):
             while mask & nums[r]:
                 mask ^= nums[l]
                 l += 1
