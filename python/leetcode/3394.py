@@ -8,12 +8,11 @@ class Solution:
 
         def cnt_non_overlap(arr):
             cnt = 0
-            cend = arr[0][1]
-            for start, end in arr[1:]:
-                if start >= cend:
+            prevend = -1 
+            for start, end in arr:
+                if prevend <= start:
                     cnt += 1
-                cend = max(cend, end)
-            cnt += 1
+                prevend = max(prevend, end)
             return cnt
         
         return max(cnt_non_overlap(x), cnt_non_overlap(y)) >= 3
