@@ -12,15 +12,13 @@ class Solution:
             if freq[num] > max_count:
                 dominant, max_count = num, freq[num]
 
-        left_count, right_count = 0, max_count
-
+        left_count = 0
         # Iterate and find the split point
         for i, num in enumerate(nums):
             if num == dominant:
                 left_count += 1
-                right_count -= 1
 
-            if left_count > (i + 1) // 2 and right_count > (len(nums) - (i + 1)) // 2:
+            if left_count > (i + 1) // 2 and max_count - left_count > (len(nums) - (i + 1)) // 2:
                 return i
         
         return -1
