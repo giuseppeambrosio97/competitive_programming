@@ -22,5 +22,4 @@ class Solution:
                 earn+get_i(i+skip+1), 
                 get_i(i+1)
             )
-        print(cache)
         return cache[0]
