@@ -4,14 +4,13 @@ from typing import List
 class Solution:
     def subsetXORSum(self, nums: List[int]) -> int:
         N = len(nums)
-        res = [0]
+    
         def back(idx: int, v: int = 0):
-            res[0] += v
-            for i in range(idx, N):
-                back(i+1, v^nums[i])
-        back(0)
-        return res[0]
-
+            if idx == N:
+                return v
+            return back(idx+1, v^nums[idx]) + back(idx+1,v)    
+    
+        return back(0)
 
 
 if __name__ == "__main__":
