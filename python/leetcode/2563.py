@@ -1,3 +1,4 @@
+import bisect
 from typing import List
 
 
@@ -54,6 +55,19 @@ class Solution:
                 else:
                     cnt += max(0, r - l)
         return cnt // 2
+    
+        """Solution using bisect std lib."""
+    # def countFairPairs(self, nums: List[int], lower: int, upper: int) -> int:
+    #     nums.sort()
+    #     res = 0
+    #     for i in range(len(nums)):
+    #         a = bisect.bisect_left(nums, lower-nums[i], lo=i+1)
+    #         b = bisect.bisect_right(nums, upper-nums[i], lo=i+1) - 1
+    #         if a <= b:
+    #             res += (max(b-a+1,0))
+    #     return res
+        
+
 
 
 if __name__ == "__main__":
