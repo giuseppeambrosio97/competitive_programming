@@ -6,6 +6,14 @@ class Solution:
                 digit.append(x % base)
                 x //= base
             return digit == digit[::-1]
+        
+        def generate_palindrome(i: int, is_even_l: bool):
+            combined = i
+            x = i // 10 if not is_even_l else i
+            while x:
+                combined = combined*10 + x%10
+                x //= 10
+            return combined
 
         left, cnt, ans = 1, 0, 0
         while cnt < n:
@@ -17,11 +25,7 @@ class Solution:
                 for i in range(left, right):
                     if cnt == n:
                         break
-                    combined = i
-                    x = i // 10 if op == 0 else i
-                    while x:
-                        combined = combined * 10 + x % 10
-                        x //= 10
+                    combined = generate_palindrome(i, op == 1)
                     if isPalindrome(x=combined,base=k):
                         cnt += 1
                         ans += combined
