@@ -13,8 +13,10 @@ class Solution:
         def dp(i: int, left: int):
             if i >= N or left <= 0:
                 return 0
-            dont_take = dp(i+1,left) # don't take
+            ## don't take i
+            dont_take = dp(i+1,left)
 
+            # take i
             next_id = bisect.bisect_right(starts,events[i][1], lo=i)
             take = events[i][2] + dp(next_id,left-1)
 
