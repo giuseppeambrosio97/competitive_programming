@@ -6,7 +6,6 @@ from typing import List
 class Solution:
     def maxValue(self, events: List[List[int]], k: int) -> int:
         events.sort()
-        starts = [e[0] for e in events]
         N = len(events)
 
         @lru_cache(maxsize=None)
@@ -17,7 +16,7 @@ class Solution:
             dont_take = dp(i+1,left)
 
             # take i
-            next_id = bisect.bisect_right(starts,events[i][1], lo=i)
+            next_id = bisect.bisect_right(events,events[i][1], lo=i, key=lambda x: x[0])
             take = events[i][2] + dp(next_id,left-1)
 
             return max(take,dont_take)
