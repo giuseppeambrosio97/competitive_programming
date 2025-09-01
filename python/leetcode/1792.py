@@ -4,23 +4,17 @@ from typing import List
 
 class Solution:
     def maxAverageRatio(self, classes: List[List[int]], extraStudents: int) -> float:
-        nc = len(classes)
-        cprs = [
-            (-((c[0] + 1) / (c[1] + 1) - (c[0] / c[1])), c[0] / c[1], c[0], c[1])
-            for c in classes
-        ]
-        res = sum([c[1] for c in cprs]) / nc
+        N = len(classes)
+        # class_pass_ratios
+        cprs = [(-((p + 1) / (t + 1) - p / t), p / t, p, t) for p, t in classes]
+        res = sum([cp[1] for cp in cprs]) / N
         heapq.heapify(cprs)
         for _ in range(extraStudents):
-            delta, r, p,t = heapq.heappop(cprs)
-            res -= delta/nc
-            heapq.heappush(
-                cprs,
-                (-((p+2)/(t+2)-(p+1)/(t+1)),
-                (p+1)/(t+1),
-                p+1,
-                t+1,)
-            )
+            delta, _, p, t = heapq.heappop(cprs)
+            p += 1
+            t += 1
+            res -= delta/N
+            heapq.heappush(cprs, (-((p + 1) / (t + 1) - p / t), p / t, p, t))
         return res
 
 
